@@ -1,12 +1,7 @@
 <template>
-  <div>
-    <div class="nav-wrapper">
-      <div class="content">
-        Labels.vue
-      </div>
-      <Nav/>
-    </div>
-  </div>
+  <Layout>
+    Labels.vue
+  </Layout>
 </template>
 
 <script lang="ts">
@@ -14,18 +9,3 @@
     name: 'Labels',
   };
 </script>
-
-<style lang="scss" scoped>
-  .nav-wrapper {
-    border: 1px solid green;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-
-  .content {
-    overflow: auto;
-    flex-grow: 1;
-    border:1px solid blue;
-  }
-</style>

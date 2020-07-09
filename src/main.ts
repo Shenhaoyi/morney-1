@@ -4,10 +4,12 @@ import './registerServiceWorker';
 import router from './router';  //相当于./router/index.ts。如果是目录的话自动找下面的index文件
 import store from './store';
 import Nav from '@/components/Nav.vue';
+import Layout from '@/components/Layout.vue';
 
 Vue.config.productionTip = false;
 
 Vue.component('Nav', Nav)
+Vue.component('Layout', Layout)
 
 new Vue({
   router, //router:router的缩写
