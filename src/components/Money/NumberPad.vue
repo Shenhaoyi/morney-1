@@ -1,33 +1,74 @@
 <template>
   <div class="numberPad">
-    <div class="output">100</div>
+    <div class="output">{{output}}</div>
     <div class="buttons">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>删除</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>清除</button>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button class="ok">OK</button>
-      <button class="zero">0</button>
-      <button>.</button>
+      <button @click="inputContent">1</button>
+      <button @click="inputContent">2</button>
+      <button @click="inputContent">3</button>
+      <button @click="remove">删除</button>
+      <button @click="inputContent">4</button>
+      <button @click="inputContent">5</button>
+      <button @click="inputContent">6</button>
+      <button @click="clear">清除</button>
+      <button @click="inputContent">7</button>
+      <button @click="inputContent">8</button>
+      <button @click="inputContent">9</button>
+      <button class="ok" @click="ok">OK</button>
+      <button class="zero" @click="inputContent">0</button>
+      <button @click="inputContent">.</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'NumberPad'
-  };
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
+
+  @Component
+  export default class NumberPad extends Vue {
+    output = '0';
+
+    inputContent(event: MouseEvent) {
+      const button = (event.target as HTMLButtonElement); //强制指定为button
+      const input = button.textContent!;
+      if (this.output.length === 16) return;
+      //已经存在'.'了
+      if (this.output.indexOf('.') > -1 && input === '.') {
+        return;
+      }
+      //第一个输入
+      if (this.output === '0') {
+        if ('0123456789'.indexOf(input) > -1) {
+          this.output = input;
+          return;
+        }
+      }
+      this.output += input;
+    }
+
+    remove() {
+      if(this.output.length===1) {
+        this.output ='0';
+        return
+      }
+      this.output = this.output.slice(0, -1);
+    }
+
+    clear() {
+      this.output = '0';
+    }
+
+    ok() {
+      this.$emit('update:value', this.output);
+      this.$emit('submit',this.output)
+      this.output = '0';
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
   @import '~@/assets/style/helper.scss';
+
   .numberPad {
     .output {
       //@extend %innerShadow;
@@ -35,6 +76,7 @@
       font-family: Consolas, monospace; /*设置等宽字体，与系统一致*/
       padding: 9px 16px;
       text-align: right;
+      height: 72px;
     }
 
     .buttons {

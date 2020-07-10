@@ -1,7 +1,7 @@
 <template>
   <ul class="types">
-    <li :class="type === '-' && 'selected'" @click="selectType('-')">支出</li>
-    <li :class="type === '+' && 'selected'" @click="selectType('+')">收入</li>
+    <li :class="value === '-' && 'selected'" @click="selectType('-')">支出</li>
+    <li :class="value === '+' && 'selected'" @click="selectType('+')">收入</li>
   </ul>
 </template>
 
@@ -13,8 +13,7 @@
   //让下面这些东西会自动处理成data等
 
   export default class Types extends Vue {
-    type = '-'; // '-'表示支出，'+'表示收入
-    @Prop(Number) xxx: number | undefined;
+    @Prop() readonly value!: string;
     //@Prop(Number) xxx = 0;  //给初始值之后ts会自动猜类型，也不用对undefined负责l
     //如果有undefined,则后面用到xxx的地方都需要进行undefined检测
     //Prop装饰器，告诉vue这不是data，是props
@@ -26,7 +25,7 @@
       if (type !== '-' && type !== '+') {
         throw new Error('type is unknown');
       }
-      this.type = type;
+      this.$emit("update:value",type)
     }
   }
 
