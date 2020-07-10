@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <label class="notes">
-      <span class="name">备注</span>
-      <input type="text" placeholder="在这里输入备注"/>
-    </label>
-  </div>
+  <label class="notes">
+    <span class="name">备注</span>
+    <input type="text" placeholder="在这里输入备注"/>
+  </label>
 </template>
 
 <script lang="ts">
@@ -15,6 +13,7 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/style/helper.scss';
+
   .notes {
     font-size: 14px;
     background: #f5f5f5;
