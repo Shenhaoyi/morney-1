@@ -32,7 +32,7 @@
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
     record: Record = {tags: [], notes: '', type: '-', amount: 0};
-    recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || 'x');  //数组成员是Record类型
+    recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');  //数组成员是Record类型
 
     onUpdateTags(value: string[]) {
       this.record.tags = value;
