@@ -7,26 +7,26 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component //引入component修饰器，修饰在class上
   //让下面这些东西会自动处理成data等
 
   export default class Types extends Vue {
     type = '-'; // '-'表示支出，'+'表示收入
+    @Prop(Number) xxx: number | undefined;
+    //@Prop(Number) xxx = 0;  //给初始值之后ts会自动猜类型，也不用对undefined负责l
+    //如果有undefined,则后面用到xxx的地方都需要进行undefined检测
+    //Prop装饰器，告诉vue这不是data，是props
+    //声明Number，是告诉vue这是个Number——运行时
+    //名字叫propA
+    //number或者undefined 告诉 TS 这个数据的类型——编译时
+
     selectType(type: string) { //type 只能是是 '-' 和 '+' 中的一个
       if (type !== '-' && type !== '+') {
         throw new Error('type is unknown');
       }
       this.type = type;
-    }
-
-    created() {
-      console.log(1)
-    }
-
-    mounted() {
-      console.log(2)
     }
   }
 
