@@ -6,7 +6,8 @@
       </button>
     </div>
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag.id" :class="selectedTags.indexOf(tag)>=0 && 'selected'" @click="toggle(tag.name)">
+      <li v-for="tag in dataSource" :key="tag.id" :class="selectedTags.indexOf(tag)>=0 && 'selected'"
+          @click="toggle(tag.name)">
         {{tag.name}}
       </li>
     </ul>
@@ -30,7 +31,7 @@
       } else {
         this.selectedTags.push(tag);
       }
-      this.$emit('update:value',this.selectedTags)
+      this.$emit('update:value', this.selectedTags);
     }
 
     create() {
@@ -41,8 +42,6 @@
         const message = tagListModel.create(tagName!);
         if (message === 'duplicated') {
           window.alert('标签名重复了');
-        } else if (message === 'success') {
-          window.alert('添加成功');
         }
         // this.$emit('update:dataSource', [...this.dataSource, tagName]);
       }
