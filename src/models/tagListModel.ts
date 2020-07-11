@@ -1,3 +1,5 @@
+import createId from '@/lib/createId';
+
 const localStorageKeyName = 'tagList';
 type Tag = {
   id: string;
@@ -20,7 +22,8 @@ const tagListModel: TagListModel = {
   create(name: string) {
     const names = this.data.map(item => item.name);
     if (names.indexOf(name) > -1) return 'duplicated';
-    this.data.push({id: name, name: name}); //id有了数据库之后换为数字
+    const id = createId().toString()
+    this.data.push({id: id, name: name}); //id有了数据库之后换为数字
     this.save();
     return 'success';
   },
@@ -52,7 +55,6 @@ const tagListModel: TagListModel = {
         break;
       }
     }
-    console.log(this.data);
     this.data.splice(index, 1);
     this.save();
     return true;

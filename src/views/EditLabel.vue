@@ -48,8 +48,9 @@
 
     remove() {
       if (this.tag) {
-        console.log('xxx')
-        tagListModel.remove(this.tag.id);
+        if(tagListModel.remove(this.tag.id)){
+          this.$router.replace('/labels');
+        }
       }
     }
     goBack(){
