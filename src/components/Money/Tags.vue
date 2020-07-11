@@ -7,7 +7,7 @@
     </div>
     <ul class="current">
       <li v-for="tag in dataSource" :key="tag.id" :class="selectedTags.indexOf(tag)>=0 && 'selected'"
-          @click="toggle(tag.name)">
+          @click="toggle(tag)">
         {{tag.name}}
       </li>
     </ul>
@@ -25,7 +25,9 @@
     selectedTags: string[] = [];
 
     toggle(tag: string) {
+      console.log(111)
       const index = this.selectedTags.indexOf(tag);
+      console.log(index)
       if (index > -1) {
         this.selectedTags.splice(index, 1);
       } else {

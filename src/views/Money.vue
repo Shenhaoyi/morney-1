@@ -31,7 +31,7 @@
     recordList: RecordItem[] = recordList;
 
     onUpdateTags(value: string[]) {
-      this.record.tags = value;
+      this.record.tags = value; //选中的tags
     }
 
     onUpdateNotes(value: string) {
