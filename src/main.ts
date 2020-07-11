@@ -15,6 +15,17 @@ Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 
 window.tagList = tagListModel.fetch();
+window.createTag = () => {
+  const tagName = window.prompt('请输入标签名');
+  if (tagName === '' || tagName === null) {
+    window.alert('标签名不能为空');
+  } else {
+    const message = tagListModel.create(tagName);
+    if (message === 'duplicated') {
+      window.alert('标签名重复了');
+    }
+  }
+};
 
 new Vue({
   router, //router:router的缩写
