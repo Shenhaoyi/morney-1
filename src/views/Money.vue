@@ -1,9 +1,12 @@
 <template>
   <Layout class-prefix="layout">
+    {{record}}
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     <types :value.sync="record.type"/>
     <div class="notes-wrapper">
-      <FormItem field-name="备注" placeholder="在这里输入备注" @update:value="onUpdateNotes"/>
+      <FormItem field-name="备注"
+                placeholder="在这里输入备注"
+                @update:value="onUpdateNotes"/>
     </div>
     <tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
