@@ -1,15 +1,17 @@
 <template>
   <Layout>
     <div class="navBar">
-      <Icon class="leftIcon" name="left"></Icon>
+      <Icon class="leftIcon" name="left" @click="goBack"></Icon>
       <span class="title">编辑标签</span>
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-      <FormItem :value="tag.name" :field-name="'标签名'" placeholder="请输入标签名"/>
+      <FormItem :value="tag.name"
+                @update:value="onUpdateTag"
+                :field-name="'重命名：'" placeholder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
-      <Button>删除标签</Button>
+      <Button @click.native="remove">删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -25,17 +27,34 @@
     components: {Button, FormItem}
   })
   export default class EditLabel extends Vue {
-    tag?: {id: string;name: string} = undefined;
+    tag?: { id: string; name: string } = undefined;
+
     created() {
       const id = this.$route.params.id;
       tagListModel.fetch();
       const tags = tagListModel.data;
       const tag = tags.filter(t => t.id === id)[0]; //filter返回数组
       if (tag) {
-        this.tag = tag
+        this.tag = tag;
       } else {
         this.$router.replace('/404');// 用push会回退不了
       }
+    }
+
+    onUpdateTag(name: string) {
+      if (!this.tag) return;
+      tagListModel.update(this.tag.id, name);
+    }
+
+    remove() {
+      if (this.tag) {
+        console.log('xxx')
+        tagListModel.remove(this.tag.id);
+      }
+    }
+    goBack(){
+      this.$router.replace('/labels');
+      // this.$router.back();
     }
   }
 </script>
@@ -69,10 +88,10 @@
     background: white;
   }
 
-  .button-wrapper{
+  .button-wrapper {
     display: flex;
     justify-content: center;
-    padding:16px;
-    margin-top:44-16px;
+    padding: 16px;
+    margin-top: 44-16px;
   }
 </style>
