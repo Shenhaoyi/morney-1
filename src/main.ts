@@ -17,8 +17,10 @@ Vue.component('Icon', Icon);
 window.tagList = tagListModel.fetch();
 window.createTag = () => {
   const tagName = window.prompt('请输入标签名');
-  if (tagName === '' || tagName === null) {
+  if (tagName === '') {
     window.alert('标签名不能为空');
+  }else if (tagName === null){
+    return
   } else {
     const message = tagListModel.create(tagName);
     if (message === 'duplicated') {
@@ -26,7 +28,18 @@ window.createTag = () => {
     }
   }
 };
+window.removeTag =(tag: Tag)=>{
+    return tagListModel.remove(tag.id);
+}
+window.updateTag=(id: string,name: string)=>{
+  return tagListModel.update(id, name);
+}
+window.findTag=(id: string)=>{
+  const result = window.tagList.filter(tag => tag.id === id)[0];
+  console.log(result);
+  return window.tagList.filter(tag => tag.id === id)[0]; //filter返回数组
 
+}
 new Vue({
   router, //router:router的缩写
   store,

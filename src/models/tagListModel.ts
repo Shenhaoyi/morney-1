@@ -44,9 +44,13 @@ const tagListModel: TagListModel = {
         break;
       }
     }
-    this.data.splice(index, 1);
-    this.save();
-    return true;
+    if(index!==-1){
+      this.data.splice(index, 1);
+      this.save();
+      return true;
+    }else{
+      return true
+    }
   }
 };
 
