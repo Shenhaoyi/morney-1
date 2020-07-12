@@ -6,8 +6,6 @@ import store from './store';
 import Nav from '@/components/Nav.vue';
 import Layout from '@/components/Layout.vue';
 import Icon from '@/components/Icon.vue';
-import tagListModel from '@/models/tagListModel';
-import recordListModel from '@/models/recordListModel';
 
 Vue.config.productionTip = false;
 
@@ -15,37 +13,6 @@ Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 
-//record store
-window.recordList = recordListModel.fetch();
-window.recordCreate = (record: RecordItem) => recordListModel.create(record);
-
-//tag store
-window.tagList = tagListModel.fetch();
-window.createTag = () => {
-  const tagName = window.prompt('请输入标签名');
-  if (tagName === '') {
-    window.alert('标签名不能为空');
-  } else if (tagName === null) {
-    return;
-  } else {
-    const message = tagListModel.create(tagName);
-    if (message === 'duplicated') {
-      window.alert('标签名重复了');
-    }
-  }
-};
-window.removeTag = (tag: Tag) => {
-  return tagListModel.remove(tag.id);
-};
-window.updateTag = (id: string, name: string) => {
-  return tagListModel.update(id, name);
-};
-window.findTag = (id: string) => {
-  const result = window.tagList.filter(tag => tag.id === id)[0];
-  console.log(result);
-  return window.tagList.filter(tag => tag.id === id)[0]; //filter返回数组
-
-};
 new Vue({
   router, //router:router的缩写
   store,

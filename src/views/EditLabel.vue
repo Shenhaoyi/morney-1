@@ -6,9 +6,8 @@
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-      <FormItem :value="tag.name"
-                @update:value="onUpdateTag"
-                :field-name="'重命名：'" placeholder="请输入标签名"/>
+      <FormItem @update:value="onUpdateTag"
+                :field-name="'重命名：'" placeholder="请输入新的标签名"/>
     </div>
     <div class="button-wrapper">
       <Button @click.native="remove">删除标签</Button>
@@ -21,6 +20,7 @@
   import {Component} from 'vue-property-decorator';
   import FormItem from '@/components/Money/FormItem.vue';
   import Button from '@/components/Button.vue';
+  import store from '@/store/index2';
 
   @Component({
     components: {Button, FormItem}
@@ -29,7 +29,7 @@
     tag?: Tag = undefined;
 
     created() {
-      this.tag = window.findTag(this.$route.params.id)
+      this.tag = store.findTag(this.$route.params.id)
       if (!this.tag) {
         this.$router.replace('/404');// 用push会回退不了
       }
@@ -37,12 +37,12 @@
 
     onUpdateTag(name: string) {
       if (!this.tag) return;
-      window.updateTag(this.tag.id,name)
+      store.updateTag(this.tag.id,name)
     }
 
     remove() {
       if (this.tag) {
-        if (window.removeTag(this.tag)) {
+        if (store.removeTag(this.tag)) {
           this.goBack();
         }
       }

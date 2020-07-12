@@ -6,7 +6,7 @@
       </button>
     </div>
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag.id" :class="selectedTags.indexOf(tag)>=0 && 'selected'"
+      <li v-for="tag in tags" :key="tag.id" :class="selectedTags.indexOf(tag)>=0 && 'selected'"
           @click="toggle(tag)">
         {{tag.name}}
       </li>
@@ -16,15 +16,15 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
+  import store from '@/store/index2';
 
   @Component
   export default class Tags extends Vue {
-    @Prop() readonly dataSource: string[] | undefined;
-    selectedTags: string[] = [];
+    tags = store.tagList;
+    selectedTags: Tag[] = [];
 
-    toggle(tag: string) {
-      console.log(111);
+    toggle(tag: Tag) {
       const index = this.selectedTags.indexOf(tag);
       console.log(index);
       if (index > -1) {
@@ -36,7 +36,7 @@
     }
 
     create() {
-      window.createTag();
+      store.createTag();
     }
   }
 </script>

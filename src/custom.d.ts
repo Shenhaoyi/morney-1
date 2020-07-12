@@ -1,5 +1,5 @@
 type RecordItem = {
-  tags: string[];
+  tags: Tag[];
   notes: string;
   type: string;
   amount: number; //数据类型
@@ -17,14 +17,4 @@ type TagListModel = {
   save: () => void;
   update: (id: string, name: string) => 'success' | 'not found' | 'duplicated';
   remove: (id: string) => boolean;
-}
-
-interface Window {
-  tagList: Tag[];
-  createTag: () => void;
-  removeTag: (tag: Tag) => boolean;
-  updateTag: TagListModel['update'];
-  findTag: (id: string) => Tag|undefined;
-  recordList: RecordItem[];
-  recordCreate: (record: RecordItem) => void;
 }
