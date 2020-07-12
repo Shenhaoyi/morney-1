@@ -22,9 +22,6 @@ export default {
     return tagListModel.update(id, name);
   },
   findTag(id: string) {
-    const result = this.tagList.filter(tag => tag.id === id)[0];
-    console.log(result);
     return this.tagList.filter(tag => tag.id === id)[0]; //filter返回数组
-
   },
 };

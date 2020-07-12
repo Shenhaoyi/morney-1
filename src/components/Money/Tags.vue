@@ -26,7 +26,6 @@
 
     toggle(tag: Tag) {
       const index = this.selectedTags.indexOf(tag);
-      console.log(index);
       if (index > -1) {
         this.selectedTags.splice(index, 1);
       } else {

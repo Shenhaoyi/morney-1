@@ -18,11 +18,13 @@
   import FormItem from '@/components/Money/FormItem.vue';
   import Tags from '@/components/Money/Tags.vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/index2';
-
+  import oldStore from '@/store/index2';
 
   @Component({
-    components: {Tags, FormItem, Types, NumberPad}
+    components: {Tags, FormItem, Types, NumberPad},
+    computed: {
+
+    }
   })
   export default class Money extends Vue {
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
@@ -42,7 +44,7 @@
     }
 
     saveRecord() {
-      store.recordCreate(this.record)
+      oldStore.recordCreate(this.record);
     }
   }
 </script>
@@ -52,8 +54,9 @@
     display: flex;
     flex-direction: column-reverse;
   }
-  .notes-wrapper{
-    padding-top:12px;
+
+  .notes-wrapper {
+    padding-top: 12px;
     padding-bottom: 12px;
   }
 </style>
