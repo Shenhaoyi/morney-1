@@ -43,6 +43,5 @@ window.findTag=(id: string)=>{
 new Vue({
   router, //router:router的缩写
   store,
-  // components: {Nav:Nav},
   render: h => h(App)
 }).$mount('#app');
