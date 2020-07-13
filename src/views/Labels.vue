@@ -27,7 +27,7 @@
   })
   export default class Labels extends Vue {
 
-    computed() {
+    created() {
       this.$store.commit('fetchTags');
     }
 

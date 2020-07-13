@@ -45,7 +45,6 @@
     }
 
     create() {
-      console.log(this.$store.commit('fetchTags'));
       this.$store.commit('createTag');
     }
   }

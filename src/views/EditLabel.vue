@@ -6,14 +6,11 @@
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-<!--      <FormItem @update:value="onUpdateTag"-->
-<!--                :field-name="'重命名：'" placeholder="请输入新的标签名"/>-->
-      <FormItem
-                :field-name="'重命名：'" placeholder="请输入新的标签名"/>
+            <FormItem @update:value="onUpdateTag"
+                      :field-name="'重命名：'" placeholder="请输入新的标签名"/>
     </div>
     <div class="button-wrapper">
-      <Button>删除标签</Button>
-<!--      <Button @click.native="remove">删除标签</Button>-->
+      <Button @click.native="remove">删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -25,30 +22,34 @@
   import Button from '@/components/Button.vue';
 
   @Component({
-    components: {Button, FormItem}
+    components: {Button, FormItem},
+    computed:{
+    }
   })
   export default class EditLabel extends Vue {
-    tag?: Tag = undefined;
+    get tag(){
+      return this.$store.state.currentTag
+    }
 
-    // created() {
-    //   this.tag = this.$store.commit('findTag',this.$route.params.id)
-    //   if (!this.tag) {
-    //     this.$router.replace('/404');// 用push会回退不了
-    //   }
-    // }
+    created() {
+      this.$store.commit('fetchTags');
+      this.$store.commit('findTag', this.$route.params.id);
+      if (!this.tag) {
+        this.$router.replace('/404');// 用push会回退不了
+      }
+    }
 
-    // onUpdateTag(name: string) {
-    //   if (!this.tag) return;
-    //   store.updateTag(this.tag.id,name)
-    // }
+    onUpdateTag(name: string) {
+      if (!this.tag) return;
+      this.$store.commit('updateTag',{id:this.tag.id,name:name})
+    }
 
-    // remove() {
-    //   if (this.tag) {
-    //     if (this.$store.commit('removeTag',this.tag) {
-    //       this.goBack();
-    //     }
-    //   }
-    // }
+    remove() {
+      if (this.tag) {
+        this.$store.commit('removeTag', this.tag);
+        this.goBack();
+      }
+    }
 
     goBack() {
       this.$router.replace('/labels');
