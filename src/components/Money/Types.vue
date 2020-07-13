@@ -1,7 +1,11 @@
 <template>
   <ul class="types">
-    <li :class="value === '-' && 'selected'" @click="selectType('-')">支出</li>
-    <li :class="value === '+' && 'selected'" @click="selectType('+')">收入</li>
+    <li :class="{selected:value === '-', [classPrefix+'-item']:classPrefix}"
+        @click="selectType('-')">支出
+    </li>
+    <li :class="{selected:value === '+', [classPrefix+'-item']:classPrefix}"
+        @click="selectType('+')">收入
+    </li>
   </ul>
 </template>
 
@@ -14,6 +18,7 @@
 
   export default class Types extends Vue {
     @Prop() readonly value!: string;
+    @Prop(String) classPrefix?: string  //？表示可能是undefined
     //@Prop(Number) xxx = 0;  //给初始值之后ts会自动猜类型，也不用对undefined负责l
     //如果有undefined,则后面用到xxx的地方都需要进行undefined检测
     //Prop装饰器，告诉vue这不是data，是props
