@@ -19,13 +19,17 @@
 
   @Component({
     components: {Button},
-    computed:{
-      tags(){
-        return this.$store.commit('fetchTags')
+    computed: {
+      tags() {
+        return this.$store.state.tagList
       }
     }
   })
   export default class Labels extends Vue {
+
+    computed() {
+      this.$store.commit('fetchTags');
+    }
 
     createTag() {
       this.$store.commit('createTag');
