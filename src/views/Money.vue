@@ -44,7 +44,7 @@
     }
 
     saveRecord() {
-      oldStore.recordCreate(this.record);
+      oldStore.createRecord(this.record);
     }
   }
 </script>
