@@ -17,12 +17,22 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/index2';
 
-  @Component
+  @Component(
+    {
+      computed:{
+        tags(){
+          return this.$store.state.tagList
+        }
+      }
+    }
+  )
   export default class Tags extends Vue {
-    tags = store.tagList;
     selectedTags: Tag[] = [];
+
+    created(){
+      this.$store.commit('fetchTags');
+    }
 
     toggle(tag: Tag) {
       const index = this.selectedTags.indexOf(tag);
@@ -35,7 +45,8 @@
     }
 
     create() {
-      store.createTag();
+      console.log(this.$store.commit('fetchTags'));
+      this.$store.commit('createTag');
     }
   }
 </script>

@@ -18,7 +18,6 @@
   import FormItem from '@/components/Money/FormItem.vue';
   import Tags from '@/components/Money/Tags.vue';
   import {Component} from 'vue-property-decorator';
-  import oldStore from '@/store/index2';
 
   @Component({
     components: {Tags, FormItem, Types, NumberPad},
@@ -44,7 +43,7 @@
     }
 
     saveRecord() {
-      oldStore.createRecord(this.record);
+      this.$store.commit('createRecord',this.record);
     }
   }
 </script>
