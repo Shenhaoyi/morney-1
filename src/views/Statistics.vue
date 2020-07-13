@@ -29,8 +29,8 @@
     type = '-';
     interval = 'day';
 
-    intervalList = intervalList
-    recordTypeList = recordTypeList
+    intervalList = intervalList;
+    recordTypeList = recordTypeList;
   }
 
 </script>
@@ -50,6 +50,11 @@
       }
 
     }
+
+  }
+
+  ::v-deep .interval-item {
+    height:40px;
   }
 
 </style>
