@@ -27,7 +27,7 @@
     computed: {}
   })
   export default class Money extends Vue {
-    record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
+    record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt:''};
     recordTypeList = recordTypeList;
 
     onUpdateTags(value: Tag[]) {

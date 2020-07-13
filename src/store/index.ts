@@ -9,24 +9,24 @@ const KeyNameOfTagList = 'tagList';
 
 const store = new Vuex.Store({
   state: {
-    recordList:[] as RecordItem[],
-    tagList: [] as Tag[],
-    currentTag : undefined as Tag |undefined
-  },
+    recordList: [],
+    tagList: [],
+    currentTag: undefined
+  } as RootState,
   mutations: {
     //recordList
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem(KeyNameOfRecordList) || '[]');
       return state.recordList;
     },
-    createRecord(state,record: RecordItem){
+    createRecord(state, record: RecordItem) {
       const record2: RecordItem = clone(record);
-      record2.createAt = new Date();
+      record2.createAt = new Date().toISOString();
       state.recordList.push(record2);
       store.commit('saveRecords');
     },
     saveRecords(state) {
-      window.localStorage.setItem(KeyNameOfRecordList , JSON.stringify(state.recordList));
+      window.localStorage.setItem(KeyNameOfRecordList, JSON.stringify(state.recordList));
       return true;
     },
 
@@ -56,7 +56,7 @@ const store = new Vuex.Store({
     saveTags(state) {
       window.localStorage.setItem(KeyNameOfTagList, JSON.stringify(state.tagList));
     },
-    removeTag(state,tag: Tag) {
+    removeTag(state, tag: Tag) {
       let index = -1;
       for (let i = 0; i < state.tagList.length; i++) {
         if (state.tagList[i].id === tag.id) {
@@ -69,8 +69,8 @@ const store = new Vuex.Store({
         store.commit('saveTags');
       }
     },
-    updateTag(state, payload: {id: string; name: string}) {
-      const {id,name} = payload
+    updateTag(state, payload: { id: string; name: string }) {
+      const {id, name} = payload;
       const idList = state.tagList.map(item => item.id);
       if (idList.indexOf(id) > -1) {
         const names = state.tagList.map(item => item.name);
@@ -87,7 +87,7 @@ const store = new Vuex.Store({
         return 'not found';
       }
     },
-    findTag(state,id: string) {
+    findTag(state, id: string) {
       state.currentTag = state.tagList.filter(tag => tag.id === id)[0] as Tag | undefined; //filter返回数组
     },
   },
