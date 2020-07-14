@@ -16,7 +16,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component(
     {
@@ -28,7 +28,7 @@
     }
   )
   export default class Tags extends Vue {
-    selectedTags: Tag[] = [];
+    @Prop({required:true,type:Array}) selectedTags!: Tag[];
 
     created(){
       this.$store.commit('fetchTags');

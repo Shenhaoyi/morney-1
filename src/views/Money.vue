@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
+    <NumberPad :amount.sync="record.amount" @submit="saveRecord"/>
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
     <div class="notes-wrapper">
@@ -8,7 +8,7 @@
                 placeholder="在这里输入备注"
                 :value.sync="record.notes"/>
     </div>
-    <tags @update:value="onUpdateTags"/>
+    <tags :selectedTags.sync="record.tags"/>
   </Layout>
 </template>
 
@@ -30,14 +30,9 @@
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt:''};
     recordTypeList = recordTypeList;
 
-    onUpdateTags(value: Tag[]) {
-      this.record.tags = value; //选中的tags
-    }
-
-    //type的更新用sync实现了
-
-    onUpdateAmount(value: string) {
-      this.record.amount = parseFloat(value);
+    //更新都用sync实现了
+    xx(value: number){
+      this.record.amount=value
     }
 
     saveRecord() {
@@ -46,6 +41,9 @@
       }else{
         this.$store.commit('createRecord', this.record);
         this.record.notes=''
+        this.record.tags = [];
+        this.record.type = '-'
+        this.record.amount = 0
       }
     }
   }

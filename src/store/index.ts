@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
+import defaultTagNames from '@/constants/defaultTagNames';
 
 Vue.use(Vuex);
 const KeyNameOfRecordList = 'recordList';
@@ -24,7 +25,7 @@ const store = new Vuex.Store({
       record2.createAt = new Date().toISOString();
       state.recordList.push(record2);
       store.commit('saveRecords');
-      window.alert('已保存')
+      window.alert('已保存');
     },
     saveRecords(state) {
       window.localStorage.setItem(KeyNameOfRecordList, JSON.stringify(state.recordList));
@@ -35,7 +36,11 @@ const store = new Vuex.Store({
     //tagList
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem(KeyNameOfTagList) || '[]');
-      return state.tagList;
+      if (state.tagList.length === 0) {
+        for (let i = 0; i < defaultTagNames.length; i++) {
+          store.commit('subCreateTag', defaultTagNames[i]);
+        }
+      }
     },
     createTag(state) {
       const tagName = window.prompt('请输入标签名');
@@ -49,10 +54,13 @@ const store = new Vuex.Store({
           window.alert('标签名重复了');
           return;
         }
-        const id = createId().toString();
-        state.tagList.push({id: id, name: tagName});
-        store.commit('saveTags');
+        store.commit('subCreateTag', tagName);
       }
+    },
+    subCreateTag(state, tagName: string) {
+      const id = createId().toString();
+      state.tagList.push({id: id, name: tagName});
+      store.commit('saveTags');
     },
     saveTags(state) {
       window.localStorage.setItem(KeyNameOfTagList, JSON.stringify(state.tagList));

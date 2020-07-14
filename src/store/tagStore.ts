@@ -10,21 +10,16 @@ const tagStore = {
   },
   createTag() {
     const tagName = window.prompt('请输入标签名');
-    console.log(tagName);
     if (tagName === '') {
-      console.log(tagName);
       window.alert('标签名不能为空');
     } else if (tagName === null) {
       return;
     } else {
       const names = this.tagList.map(item => item.name);
-      console.log(names);
-      console.log(names.indexOf(tagName));
       if (names.indexOf(tagName) > -1) {
         window.alert('标签名重复了');
         return;
       }
-      console.log(111);
       const id = createId().toString();
       this.tagList.push({id: id, name: tagName});
       this.saveTags();

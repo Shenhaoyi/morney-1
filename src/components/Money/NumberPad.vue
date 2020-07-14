@@ -22,11 +22,13 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class NumberPad extends Vue {
-    output = '0';
+    @Prop() amount!: number;
+    output = this.amount.toString(); //这个句子只在一开始执行一次！！
+
 
     inputContent(event: MouseEvent) {
       const button = (event.target as HTMLButtonElement); //强制指定为button
@@ -47,9 +49,9 @@
     }
 
     remove() {
-      if(this.output.length===1) {
-        this.output ='0';
-        return
+      if (this.output.length === 1) {
+        this.output = '0';
+        return;
       }
       this.output = this.output.slice(0, -1);
     }
@@ -59,9 +61,9 @@
     }
 
     ok() {
-      this.$emit('update:value', this.output);
-      this.$emit('submit',this.output)
-      this.output = '0';
+      this.$emit('update:amount', parseFloat(this.output));
+      this.$emit('submit');
+      this.output='0'
     }
   }
 </script>
