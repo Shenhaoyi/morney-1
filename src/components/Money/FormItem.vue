@@ -2,6 +2,7 @@
   <label class="formItem">
     <span class="name">{{this.fieldName}}</span>
     <input type="text"
+           :value="value"
            @input="onValueChanged($event.target.value)"
            :placeholder="placeholder"/>
   </label>
@@ -16,6 +17,7 @@
 
     @Prop({required:true}) fieldName!: string; //required，必须传进来数据
     @Prop() placeholder?: string;
+    @Prop() value?: string
 
     onValueChanged(value: string) {
       this.$emit('update:value', value);

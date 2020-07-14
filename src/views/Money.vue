@@ -6,7 +6,7 @@
     <div class="notes-wrapper">
       <FormItem field-name="备注："
                 placeholder="在这里输入备注"
-                @update:value="onUpdateNotes"/>
+                :value.sync="record.notes"/>
     </div>
     <tags @update:value="onUpdateTags"/>
   </Layout>
@@ -34,10 +34,6 @@
       this.record.tags = value; //选中的tags
     }
 
-    onUpdateNotes(value: string) {
-      this.record.notes = value;
-    }
-
     //type的更新用sync实现了
 
     onUpdateAmount(value: string) {
@@ -45,7 +41,12 @@
     }
 
     saveRecord() {
-      this.$store.commit('createRecord', this.record);
+      if(this.record.tags.length ===0){
+        window.alert('请至少选择一个标签')
+      }else{
+        this.$store.commit('createRecord', this.record);
+        this.record.notes=''
+      }
     }
   }
 </script>

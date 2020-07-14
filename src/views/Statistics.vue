@@ -3,19 +3,22 @@
     <Tabs class-prefix="type"
           :data-source="recordTypeList"
           :value.sync="type"/>
-    <ol>
+    <ol v-if="groupedList.length>0">
       <li v-for="(group,key) in groupedList" :key="key">
         <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
         <ol>
           <li class="record"
               v-for="item in group.items" :key="item.createAt">
             <span>{{tagString(item.tags)}}</span>
-            <span class="notes">{{item.notes.length>0 ? '('+item.notes+')':''}}</span>
+            <span class="notes">{{item.notes.length>0 ? '('+'备注：'+item.notes+')':''}}</span>
             <span>￥{{item.amount}}</span>
           </li>
         </ol>
       </li>
     </ol>
+    <div v-else class="no-result">
+      目前没有相关记录
+    </div>
   </Layout>
 </template>
 
@@ -37,22 +40,26 @@
 
     get groupedList() {
       const {recordList} = this;
-      type Result = {title: string;total?: number;items: RecordItem[]}[]
-      if (recordList.length < 1) return [];
-      const newRecordList = clone(recordList).filter(item=>item.type ===this.type).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
-      const result: Result = [{title: dayjs(newRecordList[0].createAt).format('YYYY-MM-DD'), items: [newRecordList[0]]}];
+      type Result = { title: string; total?: number; items: RecordItem[] }[]
+      if (recordList.length < 1) return []; //as Result[]
+      const newRecordList = clone(recordList).filter(item => item.type === this.type).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+      if (newRecordList.length < 1) return []; //as Result[]
+      const result: Result = [{
+        title: dayjs(newRecordList[0].createAt).format('YYYY-MM-DD'),
+        items: [newRecordList[0]]
+      }];
       for (let i = 1; i < newRecordList.length; i++) {
         const current = newRecordList[i];
         const last = result[result.length - 1];
         if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
-          last.items.push(current)
+          last.items.push(current);
         } else {
-          result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]})
+          result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]});
         }
       }
-      result.forEach(group=>{
-        group.total = group.items.reduce((sum, item)=>{return sum+item.amount}, 0)
-      })
+      result.forEach(group => {
+        group.total = group.items.reduce((sum, item) => {return sum + item.amount;}, 0);
+      });
       return result;
     }
 
@@ -70,19 +77,19 @@
     }
 
     beautify(date: string) {
-      const api = dayjs(date)  //可以转换成中国标准时间
-      const now = dayjs() //获取现在的中国标准时间
+      const api = dayjs(date);  //可以转换成中国标准时间
+      const now = dayjs(); //获取现在的中国标准时间
       if (api.isSame(now, 'day')) {
-        return '今天'
+        return '今天';
       } else if (api.isSame(now.subtract(1, 'day'), 'day')) {
-        return '昨天'
+        return '昨天';
       } else if (api.isSame(now.subtract(2, 'day'), 'day')) {
-        return '前天'
+        return '前天';
       } else if (api.isSame(now, 'year')) {
-        return api.format('M月D日')
+        return api.format('M月D日');
       }
       {
-        return api.format('YYYY年M月D日')
+        return api.format('YYYY年M月D日');
       }
     }
   }
@@ -130,5 +137,10 @@
       margin-left: 16px;
       color: #999
     }
+  }
+
+  .no-result {
+    padding: 16px;
+    text-align: center;
   }
 </style>
