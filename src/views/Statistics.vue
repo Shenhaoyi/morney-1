@@ -3,17 +3,14 @@
     <Tabs class-prefix="type"
           :data-source="recordTypeList"
           :value.sync="type"/>
-    <Tabs class-prefix="interval"
-          :data-source="intervalList"
-          :value.sync="interval"/>
     <ol>
-      <li v-for="group in result" :key="group.title">
-        <h3 class="title">{{group.title}}</h3>
+      <li v-for="(group,key) in groupedList" :key="key">
+        <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
         <ol>
           <li class="record"
               v-for="item in group.items" :key="item.createAt">
             <span>{{tagString(item.tags)}}</span>
-            <span class="notes">({{item.notes}})</span>
+            <span class="notes">{{item.notes.length>0 ? '('+item.notes+')':''}}</span>
             <span>￥{{item.amount}}</span>
           </li>
         </ol>
@@ -22,13 +19,83 @@
   </Layout>
 </template>
 
+<script lang="ts">
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
+  import Tabs from '@/components/Tabs.vue';
+  import recordTypeList from '@/constants/recordTypeList';
+  import dayjs from 'dayjs';
+  import clone from '@/lib/clone';
+
+  @Component({
+    components: {Tabs},
+  })
+  export default class Statistics extends Vue {
+    get recordList() {
+      return (this.$store.state as RootState).recordList;
+    }
+
+    get groupedList() {
+      const {recordList} = this;
+      type Result = {title: string;total?: number;items: RecordItem[]}[]
+      if (recordList.length < 1) return [];
+      const newRecordList = clone(recordList).filter(item=>item.type ===this.type).sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+      const result: Result = [{title: dayjs(newRecordList[0].createAt).format('YYYY-MM-DD'), items: [newRecordList[0]]}];
+      for (let i = 1; i < newRecordList.length; i++) {
+        const current = newRecordList[i];
+        const last = result[result.length - 1];
+        if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
+          last.items.push(current)
+        } else {
+          result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]})
+        }
+      }
+      result.forEach(group=>{
+        group.total = group.items.reduce((sum, item)=>{return sum+item.amount}, 0)
+      })
+      return result;
+    }
+
+    type = '-';
+
+    recordTypeList = recordTypeList;
+
+    created() {
+      this.$store.commit('fetchRecords');
+    }
+
+    tagString(tags: Tag[]) {
+      const tagNames = tags.map(item => item.name);
+      return tags.length === 0 ? '无' : tagNames.join('，');
+    }
+
+    beautify(date: string) {
+      const api = dayjs(date)  //可以转换成中国标准时间
+      const now = dayjs() //获取现在的中国标准时间
+      if (api.isSame(now, 'day')) {
+        return '今天'
+      } else if (api.isSame(now.subtract(1, 'day'), 'day')) {
+        return '昨天'
+      } else if (api.isSame(now.subtract(2, 'day'), 'day')) {
+        return '前天'
+      } else if (api.isSame(now, 'year')) {
+        return api.format('M月D日')
+      }
+      {
+        return api.format('YYYY年M月D日')
+      }
+    }
+  }
+</script>
+
+
 <style lang="scss" scoped>
   ::v-deep {
     .type-item {
-      background: white;
+      background: #c4c4c4;
 
       &.selected {
-        background: #c4c4c4;
+        background: white;
 
         &::after {
           display: none;
@@ -41,74 +108,27 @@
       height: 40px;
     }
 
-    %item{
+    %item {
       padding: 8px 16px;
-      line-height:24px;
+      line-height: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .title{
+    .title {
       @extend %item;
     }
-    
-    .record{
+
+    .record {
       @extend %item;
       background: white;
     }
 
-    .notes{
-      margin-right:auto;
-      margin-left:16px;
-      color:#999
+    .notes {
+      margin-right: auto;
+      margin-left: 16px;
+      color: #999
     }
   }
-
 </style>
-
-<script lang="ts">
-  import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
-  import Tabs from '@/components/Tabs.vue';
-  import intervalList from '@/constants/intervalList';
-  import recordTypeList from '@/constants/recordTypeList';
-
-  @Component({
-    components: {Tabs},
-  })
-  export default class Statistics extends Vue {
-    get recordList() {
-      return (this.$store.state as RootState).recordList;
-    }
-
-    get result() {
-      const {recordList} = this;
-      const hashTable: { [key: string]: { title: string; items: RecordItem[] } } = {};
-      for (let i = 0; i < recordList.length; i++) {
-        const [date, time] = recordList[i].createAt!.split('T');
-        hashTable[date] = hashTable[date] || {title: date, items: []}; //该时间段第一个就创建数组
-        hashTable[date].items.push(recordList[i]);
-      }
-      return hashTable;
-    }
-
-    tagString(tags: Tag[]){
-      const tagNames = tags.map(item=>item.name)
-      return tags.length===0? '无': tagNames.join('，')
-  }
-
-    created() {
-      this.$store.commit('fetchRecords');
-    }
-
-    type = '-';
-    interval = 'day';
-
-    intervalList = intervalList;
-    recordTypeList = recordTypeList;
-  }
-
-</script>
-
-
