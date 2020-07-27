@@ -19,7 +19,7 @@ new Vue({
   render: h => h(App)
 }).$mount('#app');
 
-
+//到底部，防止导航栏看不到
 window.onload = function () {
   setTimeout(function () {
     window.scrollTo(0, 200);
