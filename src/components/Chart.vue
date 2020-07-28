@@ -14,14 +14,18 @@
     chart?: ECharts;
 
     mounted() {
-      const container = this.$refs.container as HTMLDivElement;
-      this.chart = echarts.init(container, 'light');
-      this.chart.setOption(this.option!);
+      this.init()
     }
 
     @Watch('option')
     onOptionchanged() {
-      this.chart?.setOption(this.option!);
+      this.chart?.clear() //解决前后数据合并问题
+      this.init()
+    }
+    init(){
+      const container = this.$refs.container as HTMLDivElement;
+      this.chart = echarts.init(container, 'light');
+      this.chart.setOption(this.option!);
     }
   }
 </script>

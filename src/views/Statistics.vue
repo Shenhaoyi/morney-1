@@ -74,7 +74,6 @@
       const latestDay = dayjs().format('YYYY-MM-DD');
       for (let i = 0; i < 30; i++) {
         const currentDay = dayjs(latestDay).subtract(i, 'day').format('YYYY-MM-DD');
-        console.log(currentDay);
         let total = 0;
         for (const i of this.groupedList) {
           if (i.title === currentDay) {
@@ -86,7 +85,6 @@
 
         array[i] = {data: currentDay.substring(5), total: total};
       }
-      console.log(array);
       return array.reverse();
     }
 
@@ -95,14 +93,23 @@
       const values = this.datesAndTotals.map(item => item.total);
       return {
         grid: {
-          right: 0,
-          left: 0
+          right: 5,
+          left: 30
         },
         title: {
           show: true,
-          text: '111',
-          right: 20
+          text: this.type === '-' ? '30天收入曲线' : '30天支出曲线',
+          padding:[20,0,0,0],
+          left:'center'
         },
+        dataZoom:[
+          {
+            show:true,
+            realtime:true,
+            start:78,
+            end:100
+          },
+        ],
         tooltip: { //点击显示
           show: true,
           triggerOn: 'click',
@@ -110,7 +117,8 @@
           formatter: '{c}',
         },
         legend: {
-          data: ['金额']
+          data: ['金额'],
+          show:false
         },
         xAxis: {
           type: 'category',
@@ -120,7 +128,7 @@
           }
         },
         yAxis: {
-          show: false,
+          show: true,
           type: 'value'
         },
         series: [{
@@ -233,7 +241,7 @@
   }
 
   .chart {
-    width: 430%;
+    /*width: 430%;*/
     height: 40vh;
   }
 </style>
