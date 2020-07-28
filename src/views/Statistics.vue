@@ -90,8 +90,9 @@
 
     get option() {
       const dates = this.datesAndTotals.map(item => item.data);
-      const values = this.datesAndTotals.map(item => item.total);
+      const totals = this.datesAndTotals.map(item => item.total);
       return {
+        animation:false,
         grid: {
           right: 5,
           left: 30
@@ -139,7 +140,7 @@
             borderWidth: 10
           },
           name: '金额',
-          data: values,
+          data: totals,
           type: 'line'
         }]
       };
