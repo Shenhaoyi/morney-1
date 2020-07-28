@@ -3,6 +3,7 @@
     <Tabs class-prefix="type"
           :data-source="recordTypeList"
           :value.sync="type"/>
+    <Chart :option="option"></Chart>
     <ol v-if="groupedList.length>0">
       <li v-for="(group,key) in groupedList" :key="key">
         <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
@@ -29,15 +30,51 @@
   import recordTypeList from '@/constants/recordTypeList';
   import dayjs from 'dayjs';
   import clone from '@/lib/clone';
+  import Chart from '@/components/Chart.vue';
 
   @Component({
-    components: {Tabs},
+    components: {Chart, Tabs},
   })
   export default class Statistics extends Vue {
+    get option() {
+      return {
+        title: {
+          show: true,
+          text: '销量统计',
+          right: 20
+        },
+        tooltip: {
+          show: true
+        },
+        legend: {
+          data: ['金额']
+        },
+        xAxis: {
+          type: 'category',
+          data: ['1', '2']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [{
+          lineStyle: {
+            color: 'blue'
+          },
+          itemStyle: {
+            borderWidth: 10
+          },
+          name: '金额',
+          data: ['12', '23'],
+          type: 'line'
+        }]
+      }
+    }
+
     get recordList() {
       return (this.$store.state as RootState).recordList;
     }
 
+    //按照type筛选，并按日期放置
     get groupedList() {
       const {recordList} = this;
       type Result = { title: string; total?: number; items: RecordItem[] }[]
