@@ -38,53 +38,9 @@
     components: {Chart, Tabs},
   })
   export default class Statistics extends Vue {
-    get option() {
-      return {
-        grid:{
-          right:0,
-          left:0
-        },
-        title: {
-          show: true,
-          text: '111',
-          right: 20
-        },
-        tooltip: { //点击显示
-          show: true,
-          triggerOn:'click',
-          position:'top',
-          formatter: '{c}',
-        },
-        legend: {
-          data: ['金额']
-        },
-        xAxis: {
-          type: 'category',
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
-          axisTick:{
-            alignWithLabel:true
-          }
-        },
-        yAxis: {
-          show:false,
-          type: 'value'
-        },
-        series: [{
-          lineStyle: {
-            color: 'blue'
-          },
-          itemStyle: {
-            borderWidth: 10
-          },
-          name: '金额',
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
-          type: 'line'
-        }]
-      }
-    }
 
     get recordList() {
-      return (this.$store.state as RootState).recordList;
+      return (this.$store.state as RootState)?.recordList;
     }
 
     //按照type筛选，并按日期放置
@@ -113,6 +69,74 @@
       return result;
     }
 
+    get datesAndTotals() {
+      const array = new Array(30);
+      const latestDay = dayjs().format('YYYY-MM-DD');
+      for (let i = 0; i < 30; i++) {
+        const currentDay = dayjs(latestDay).subtract(i, 'day').format('YYYY-MM-DD');
+        console.log(currentDay);
+        let total = 0;
+        for (const i of this.groupedList) {
+          if (i.title === currentDay) {
+            if (i) {
+              total += i.total ? i.total : 0;
+            }
+          }
+        }
+
+        array[i] = {data: currentDay.substring(5), total: total};
+      }
+      console.log(array);
+      return array.reverse();
+    }
+
+    get option() {
+      const dates = this.datesAndTotals.map(item => item.data);
+      const values = this.datesAndTotals.map(item => item.total);
+      return {
+        grid: {
+          right: 0,
+          left: 0
+        },
+        title: {
+          show: true,
+          text: '111',
+          right: 20
+        },
+        tooltip: { //点击显示
+          show: true,
+          triggerOn: 'click',
+          position: 'top',
+          formatter: '{c}',
+        },
+        legend: {
+          data: ['金额']
+        },
+        xAxis: {
+          type: 'category',
+          data: dates,
+          axisTick: {
+            alignWithLabel: true
+          }
+        },
+        yAxis: {
+          show: false,
+          type: 'value'
+        },
+        series: [{
+          lineStyle: {
+            color: 'blue'
+          },
+          itemStyle: {
+            borderWidth: 10
+          },
+          name: '金额',
+          data: values,
+          type: 'line'
+        }]
+      };
+    }
+
     type = '-';
 
     recordTypeList = recordTypeList;
@@ -120,10 +144,11 @@
     created() {
       this.$store.commit('fetchRecords');
     }
-    mounted(){
+
+    mounted() {
       //曲线移到最右
-      const div = this.$refs.wrapper as HTMLDivElement
-      div.scrollLeft = div.scrollWidth
+      const div = this.$refs.wrapper as HTMLDivElement;
+      div.scrollLeft = div.scrollWidth;
     }
 
     tagString(tags: Tag[]) {
@@ -201,13 +226,14 @@
 
   .wrapper {
     overflow: auto;
+
     &::-webkit-scrollbar {
       display: none;
     }
   }
 
-  .chart{
-    width:430%;
-    height:40vh;
+  .chart {
+    width: 430%;
+    height: 40vh;
   }
 </style>
