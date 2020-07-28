@@ -1,29 +1,27 @@
 <template>
-  <div ref='container'>
-  </div>
+    <div class="container" ref='container'>
+    </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop, Watch} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import echarts, {EChartOption} from 'echarts';
 
   @Component
   export default class Chart extends Vue {
-    @Prop() option?: EChartOption
+    @Prop() option?: EChartOption;
 
     mounted() {
-      const width = document.documentElement.clientWidth
-      const container =  this.$refs.container as HTMLDivElement
-      container.style.width = `${width - 20}px`
-      container.style.height = `${(width - 20) * 1.2}px`
-      const chart = echarts.init(container, 'light')
-      chart.setOption(this.option!)
+      const container = this.$refs.container as HTMLDivElement;
+      const chart = echarts.init(container, 'light');
+      chart.setOption(this.option!);
     }
-    @Watch('option')
-      onOptionchanged(){
-      this.chart.setOption(this.option)
-    }
+
+    // @Watch('option')
+    //   onOptionchanged(){
+    //   this.chart.setOption(this.option)
+    // }
   }
 </script>
 

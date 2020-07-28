@@ -3,7 +3,9 @@
     <Tabs class-prefix="type"
           :data-source="recordTypeList"
           :value.sync="type"/>
-    <Chart :option="option"></Chart>
+    <div class="wrapper" ref="wrapper">
+      <Chart class='chart' :option="option"></Chart>
+    </div>
     <ol v-if="groupedList.length>0">
       <li v-for="(group,key) in groupedList" :key="key">
         <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
@@ -38,22 +40,33 @@
   export default class Statistics extends Vue {
     get option() {
       return {
+        grid:{
+          right:0,
+          left:0
+        },
         title: {
           show: true,
-          text: '销量统计',
+          text: '111',
           right: 20
         },
-        tooltip: {
-          show: true
+        tooltip: { //点击显示
+          show: true,
+          triggerOn:'click',
+          position:'top',
+          formatter: '{c}',
         },
         legend: {
           data: ['金额']
         },
         xAxis: {
           type: 'category',
-          data: ['1', '2']
+          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+          axisTick:{
+            alignWithLabel:true
+          }
         },
         yAxis: {
+          show:false,
           type: 'value'
         },
         series: [{
@@ -64,7 +77,7 @@
             borderWidth: 10
           },
           name: '金额',
-          data: ['12', '23'],
+          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
           type: 'line'
         }]
       }
@@ -106,6 +119,11 @@
 
     created() {
       this.$store.commit('fetchRecords');
+    }
+    mounted(){
+      //曲线移到最右
+      const div = this.$refs.wrapper as HTMLDivElement
+      div.scrollLeft = div.scrollWidth
     }
 
     tagString(tags: Tag[]) {
@@ -179,5 +197,17 @@
   .no-result {
     padding: 16px;
     text-align: center;
+  }
+
+  .wrapper {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .chart{
+    width:430%;
+    height:40vh;
   }
 </style>
