@@ -216,6 +216,7 @@
 
     .title {
       @extend %item;
+      border-top:2px solid $theme-color;
     }
 
     .record {

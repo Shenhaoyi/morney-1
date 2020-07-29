@@ -55,7 +55,8 @@
 
 
     .name {
-      padding-right: 16px;
+      /*padding-right: 16px;*/
+      /*border:1px solid red;*/
     }
 
     /*.date{*/

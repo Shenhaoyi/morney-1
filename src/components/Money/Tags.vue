@@ -61,7 +61,7 @@
     font-size: 20px;
     padding: 16px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     overflow: auto;
 
     > .current {

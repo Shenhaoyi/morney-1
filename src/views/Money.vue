@@ -1,17 +1,18 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad :amount.sync="record.amount" @submit="saveRecord"/>
-    <div class="noteDate-wrapper"></div>
-    <div class="createAt-wrapper">
-      <FormItem field-name='日期：'
-                type="date"
-                placeholder="输入日期"
-                :value.sync="record.createAt"/>
-    </div>
-    <div class="notes-wrapper">
-      <FormItem field-name="备注："
-                placeholder="输入备注"
-                :value.sync="record.notes"/>
+    <div class="noteDate-wrapper">
+      <div class="createAt-wrapper">
+        <FormItem field-name=''
+                  type="date"
+                  placeholder="输入日期"
+                  :value.sync="record.createAt"/>
+      </div>
+      <div class="notes-wrapper">
+        <FormItem field-name=""
+                  placeholder="输入备注"
+                  :value.sync="record.notes"/>
+      </div>
     </div>
     <tags :selectedTags.sync="record.tags"/>
     <Tabs :data-source="recordTypeList"
@@ -57,20 +58,31 @@
 </script>
 
 <style lang="scss">
+  @import '~@/assets/style/helper.scss';
+
   .layout-content {
     display: flex;
     flex-direction: column-reverse;
   }
 
-  .notes-wrapper {
-    padding-top: 12px;
-    padding-bottom: 12px;
+  .noteDate-wrapper {
+    display: flex;
+    justify-content: center;
+
+    .notes-wrapper {
+      width: 50%;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .createAt-wrapper {
+      width: 50%;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      border-right:1px solid #d2d2d2;
+    }
   }
 
-  .createAt-wrapper {
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
 </style>
 
 <style lang="scss" scoped>
