@@ -98,6 +98,10 @@
         background: transparent;
         border: 1px solid #d2d2d2;
 
+        &:active{
+          background: $theme-color;
+        }
+
         &.ok {
           height: 64*2px;
           float: right;
