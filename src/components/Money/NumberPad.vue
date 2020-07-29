@@ -73,9 +73,8 @@
 
   .numberPad {
     .output {
-      //@extend %innerShadow;
+      @extend %innerShadow;
       font-size: 24px;
-      /*font-family: Consolas, monospace; !*设置等宽字体，与系统一致*!*/
       padding: 9px 16px;
       text-align: right;
       height: 72px;
@@ -91,45 +90,20 @@
         width: 25%;
         height: 64px;
         background: transparent;
-        border: none;
+        border: 1px solid #f2f2f2;
+
+        button:hover{
+          background: #000;
+        }
 
         &.ok {
           height: 64*2px;
           float: right;
+          background: $theme-color;
         }
 
         &.zero {
           width: 25*2%;
-        }
-
-        $bg: #f2f2f2;
-
-        &:nth-child(1) {
-          background: $bg;
-        }
-
-        &:nth-child(2), &:nth-child(5) {
-          background: darken($bg, 4%);
-        }
-
-        &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-          background: darken($bg, 8%);
-        }
-
-        &:nth-child(4), &:nth-child(7), &:nth-child(10) {
-          background: darken($bg, 12%);
-        }
-
-        &:nth-child(8), &:nth-child(11), &:nth-child(13) {
-          background: darken($bg, 16%);
-        }
-
-        &:nth-child(12) {
-          background: $theme-color;
-        }
-
-        &:nth-child(14) {
-          background: darken($bg, 20%);
         }
       }
     }

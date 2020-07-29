@@ -1,5 +1,10 @@
 <template>
   <Layout>
+    <div class="navBar">
+      <div class="titleWrapper">
+        <span class="title">标签管理</span>
+      </div>
+    </div>
     <div class="tags">
       <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`labels/edit/${tag.id}`">
         <span>{{tag.name}}</span>
@@ -21,7 +26,7 @@
     components: {Button},
     computed: {
       tags() {
-        return this.$store.state.tagList
+        return this.$store.state.tagList;
       }
     }
   })
@@ -38,6 +43,33 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '~@/assets/style/helper.scss';
+
+  .navBar {
+    background: $theme-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+
+    .titleWrapper{
+      width:25%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top:5px;
+      margin-bottom:5px;
+      border:1px solid black;
+      border-radius: 2px;
+      .title {
+        width: 100%;
+        text-align: center;
+        background: black;
+        color: $theme-color;
+      }
+    }
+  }
+
   .tags {
     background: white;
     font-size: 20px;

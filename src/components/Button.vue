@@ -10,6 +10,7 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
 
+
   @Component
   export default class Button extends Vue {
 
@@ -17,11 +18,13 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '~@/assets/style/helper.scss';
+
   .button {
-    background: #767676;
-    color: white;
+    background: $theme-color;
+    color: black;
     border-radius: 4px;
-    border: none;
+    border: 1px solid black;
     padding: 8px 16px;
   }
 </style>

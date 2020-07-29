@@ -186,6 +186,8 @@
 
 
 <style lang="scss" scoped>
+  @import '~@/assets/style/helper.scss';
+
   ::v-deep {
     .type-item {
       /*background: #c4c4c4;*/
@@ -218,7 +220,8 @@
 
     .record {
       @extend %item;
-      background: white;
+      background: lighten($theme-color,45%);
+      margin:2px 0;
     }
 
     .notes {

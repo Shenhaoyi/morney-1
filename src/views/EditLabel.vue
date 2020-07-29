@@ -2,7 +2,9 @@
   <Layout>
     <div class="navBar">
       <Icon class="leftIcon" name="left" @click="goBack"></Icon>
-      <span class="title">编辑标签</span>
+      <div class="titleWrapper">
+        <span class="title">{{tag.name}}</span>
+      </div>
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
@@ -10,6 +12,7 @@
                       :field-name="'重命名：'" placeholder="请输入新的标签名"/>
     </div>
     <div class="button-wrapper">
+      <Button @click.native="goBack">确认修改</Button>
       <Button @click.native="remove">删除标签</Button>
     </div>
   </Layout>
@@ -58,11 +61,12 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '~@/assets/style/helper.scss';
+
   .navBar {
     text-align: center;
-    font-size: 16px;
-    padding: 12px 16px;
-    background: white;
+    font-size: 24px;
+    background: $theme-color;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -72,7 +76,21 @@
       height: 24px
     }
 
-    > .title {
+    .titleWrapper{
+      width:25%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top:5px;
+      margin-bottom:5px;
+      border:1px solid black;
+      border-radius: 2px;
+      .title {
+        width: 100%;
+        text-align: center;
+        background: black;
+        color: $theme-color;
+      }
     }
 
     > .rightIcon {
@@ -88,7 +106,7 @@
 
   .button-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     padding: 16px;
     margin-top: 44-16px;
   }

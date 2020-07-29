@@ -1,10 +1,10 @@
 <template>
   <div class="tags">
-    <div class="new">
-      <button @click="create">
-        新增标签
-      </button>
-    </div>
+<!--    <div class="new">-->
+<!--      <button @click="create">-->
+<!--        新增标签-->
+<!--      </button>-->
+<!--    </div>-->
     <ul class="current">
       <li v-for="tag in tags" :key="tag.id" :class="selectedTags.indexOf(tag)>=0 && 'selected'"
           @click="toggle(tag)">
@@ -44,9 +44,9 @@
       this.$emit('update:value', this.selectedTags);
     }
 
-    create() {
-      this.$store.commit('createTag');
-    }
+    // create() {
+    //   this.$store.commit('createTag');
+    // }
   }
 </script>
 
@@ -56,22 +56,22 @@
   .tags {
     background: white;
     flex-grow: 1;
-    font-size: 20px;
+    font-size: 18px;
     padding: 16px;
     display: flex;
     flex-direction: column-reverse;
+    overflow: auto;
 
     > .current {
       display: flex;
       flex-wrap: wrap;
 
       > li {
-        $bg: #d9d9d9;
         $h: 30px;
-        background: $bg;
+        background: lighten($theme-color,40%);;
         height: $h;
         line-height: $h;
-        border:1px solid black;
+        border:1px solid $theme-color;
         border-radius: $h/2;
         padding: 0 16px;
         margin-right: 12px;
@@ -79,7 +79,7 @@
 
         &.selected {
           background: $theme-color;
-          color: black;
+          border: 1px solid black;
         }
       }
     }

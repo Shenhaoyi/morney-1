@@ -48,6 +48,8 @@
     padding-left: 16px;
     display: flex;
     align-items: center;
+    @extend %outterShadow;
+
 
     .name {
       padding-right: 16px;
