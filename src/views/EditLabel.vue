@@ -9,7 +9,8 @@
     </div>
     <div class="form-wrapper">
             <FormItem @update:value="onUpdateTag"
-                      :field-name="'重命名：'" placeholder="请输入新的标签名"/>
+                      name="rename"
+                      placeholder="请输入新的标签名"/>
     </div>
     <div class="button-wrapper">
       <Button @click.native="goBack">确认修改</Button>
@@ -77,7 +78,7 @@
     }
 
     .titleWrapper{
-      width:25%;
+      /*width:25%;*/
       display: flex;
       justify-content: center;
       align-items: center;
@@ -85,11 +86,12 @@
       margin-bottom:5px;
       border:1px solid black;
       border-radius: 2px;
+      padding:0  10px;
       .title {
         width: 100%;
         text-align: center;
-        background: black;
-        color: $theme-color;
+        background: $theme-color;
+        color: black;
       }
     }
 
@@ -100,7 +102,7 @@
   }
 
   .form-wrapper {
-    margin-top: 8px;
+    margin-top: 16px;
     background: white;
   }
 
@@ -108,6 +110,6 @@
     display: flex;
     justify-content: space-evenly;
     padding: 16px;
-    margin-top: 44-16px;
+    margin-top: 16px;
   }
 </style>

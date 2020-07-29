@@ -3,13 +3,14 @@
     <NumberPad :amount.sync="record.amount" @submit="saveRecord"/>
     <div class="noteDate-wrapper">
       <div class="createAt-wrapper">
-        <FormItem field-name=''
+        <FormItem name='date'
                   type="date"
                   placeholder="输入日期"
                   :value.sync="record.createAt"/>
       </div>
+
       <div class="notes-wrapper">
-        <FormItem field-name=""
+        <FormItem name='note'
                   placeholder="输入备注"
                   :value.sync="record.notes"/>
       </div>
@@ -66,20 +67,22 @@
   }
 
   .noteDate-wrapper {
+    width:100%;
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
 
     .notes-wrapper {
-      width: 50%;
+      width:50%;
       padding-top: 12px;
       padding-bottom: 12px;
+      border:1px solid #d2d2d2;
     }
 
     .createAt-wrapper {
       width: 50%;
       padding-top: 12px;
       padding-bottom: 12px;
-      border-right:1px solid #d2d2d2;
+      border:1px solid #d2d2d2;
     }
   }
 

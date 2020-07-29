@@ -1,21 +1,23 @@
 <template>
-  <label class="formItem">
-    <span class="name">{{this.fieldName}}</span>
-    <template v-if="type === 'date'">
-      <input :type="type"
-             :value="x(value)"
-             class = 'date'
-             @input="onValueChanged($event.target.value)"
-             :placeholder="placeholder"/>
-    </template>
-    <template v-else>
-      <input :type="type || 'text'"
-             :value="value"
-             class = 'type'
-             @input="onValueChanged($event.target.value)"
-             :placeholder="placeholder"/>
-    </template>
-  </label>
+  <div class="wrapper">
+    <Icon class="icon" :name="name"></Icon>
+    <label class="formItem">
+      <template v-if="type === 'date'">
+        <input :type="type"
+               :value="format(value)"
+               class='date'
+               @input="onValueChanged($event.target.value)"
+               :placeholder="placeholder"/>
+      </template>
+      <template v-else>
+        <input :type="type || 'text'"
+               :value="value"
+               class='type'
+               @input="onValueChanged($event.target.value)"
+               :placeholder="placeholder"/>
+      </template>
+    </label>
+  </div>
 </template>
 
 <script lang="ts">
@@ -26,16 +28,17 @@
   @Component
   export default class FormItem extends Vue {
 
-    @Prop({required:true}) fieldName!: string; //required，必须传进来数据
+    @Prop({required: true}) name!: string; //required，必须传进来数据
     @Prop() placeholder?: string;
-    @Prop() value?: string
-    @Prop() type?: string
+    @Prop() value?: string;
+    @Prop() type?: string;
 
     onValueChanged(value: string) {
       this.$emit('update:value', value);
     }
-    x(isoString: string){
-      return dayjs(isoString).format('YYYY-MM-DD')
+
+    format(isoString: string) {
+      return dayjs(isoString).format('YYYY-MM-DD').toString();
     }
   }
 </script>
@@ -43,34 +46,28 @@
 <style lang="scss" scoped>
   @import '~@/assets/style/helper.scss';
 
-  .formItem {
-    font-size: 20px;
-    padding-left: 16px;
+  .wrapper{
     display: flex;
     align-items: center;
-    //@extend %outterShadow;
-    /*box-shadow:;*/
 
-
-
-
-    .name {
-      /*padding-right: 16px;*/
-      /*border:1px solid red;*/
+    .icon {
+      padding-left:10px;
+      width:20%;
+      min-width:20px;
     }
 
-    /*.date{*/
-    /*  text-align: center;*/
-    /*  border: none;*/
-    /*  background: white;*/
-    /*}*/
+    .formItem {
+      padding-left:10px;
+      font-size: 20px;
+      width:80%;
 
-    input {
-      height: 40px;
-      flex-grow: 1;
-      background: transparent;
-      border:none;
-      padding-right: 16px;
+      input {
+        max-width: 100%;
+        flex-grow: 1;
+        background: transparent;
+        border: none;
+      }
     }
   }
+
 </style>

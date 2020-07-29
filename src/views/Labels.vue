@@ -53,7 +53,6 @@
     font-size: 24px;
 
     .titleWrapper{
-      width:25%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -61,11 +60,12 @@
       margin-bottom:5px;
       border:1px solid black;
       border-radius: 2px;
+      padding:0 10px;
       .title {
         width: 100%;
         text-align: center;
-        background: black;
-        color: $theme-color;
+        background: $theme-color;
+        color: black;
       }
     }
   }
@@ -94,8 +94,8 @@
   .createTag-wrapper {
     display: flex;
     justify-content: center;
-    padding: 16px;
-    margin-top: 44-16px;
+    padding: 0 16px;
+    margin-top: 16px;
   }
 
 </style>
