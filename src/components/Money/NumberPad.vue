@@ -1,6 +1,6 @@
 <template>
   <div class="numberPad">
-    <div class="output">{{output}}</div>
+    <div class="output">￥{{output}}</div>
     <div class="buttons">
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
@@ -13,7 +13,7 @@
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button class="ok" @click="ok">OK</button>
+      <button class="ok" @click="ok">确定</button>
       <button class="zero" @click="inputContent">0</button>
       <button @click="inputContent">.</button>
     </div>
@@ -74,11 +74,12 @@
   .numberPad {
     .output {
       //@extend %innerShadow;
-      font-size: 36px;
-      font-family: Consolas, monospace; /*设置等宽字体，与系统一致*/
+      font-size: 24px;
+      /*font-family: Consolas, monospace; !*设置等宽字体，与系统一致*!*/
       padding: 9px 16px;
       text-align: right;
       height: 72px;
+      background: white;
     }
 
     .buttons {
@@ -124,7 +125,7 @@
         }
 
         &:nth-child(12) {
-          background: darken($bg, 24%);
+          background: $theme-color;
         }
 
         &:nth-child(14) {

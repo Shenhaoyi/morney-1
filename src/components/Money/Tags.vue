@@ -56,7 +56,7 @@
   .tags {
     background: white;
     flex-grow: 1;
-    font-size: 14px;
+    font-size: 20px;
     padding: 16px;
     display: flex;
     flex-direction: column-reverse;
@@ -67,18 +67,19 @@
 
       > li {
         $bg: #d9d9d9;
+        $h: 30px;
         background: $bg;
-        $h: 24px;
         height: $h;
         line-height: $h;
+        border:1px solid black;
         border-radius: $h/2;
         padding: 0 16px;
         margin-right: 12px;
         margin-top: 4px;
 
         &.selected {
-          background: darken($bg, 35%);
-          color: white;
+          background: $theme-color;
+          color: black;
         }
       }
     }

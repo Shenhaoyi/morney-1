@@ -1,20 +1,20 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad :amount.sync="record.amount" @submit="saveRecord"/>
-    <Tabs :data-source="recordTypeList"
-          :value.sync="record.type"/>
-    <div class="createAt-wrapper">
-      <FormItem field-name="日期："
-                type="date"
-                placeholder="在这里输入日期"
-                :value.sync="record.createAt"/>
-    </div>
     <div class="notes-wrapper">
       <FormItem field-name="备注："
                 placeholder="在这里输入备注"
                 :value.sync="record.notes"/>
     </div>
     <tags :selectedTags.sync="record.tags"/>
+    <div class="createAt-wrapper">
+      <FormItem field-name='选择日期：'
+                type="date"
+                placeholder="在这里输入日期"
+                :value.sync="record.createAt"/>
+    </div>
+    <Tabs :data-source="recordTypeList"
+          :value.sync="record.type"/>
   </Layout>
 </template>
 
@@ -33,23 +33,23 @@
     computed: {}
   })
   export default class Money extends Vue {
-    record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt:new Date().toISOString()};
+    record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt: new Date().toISOString()};
     recordTypeList = recordTypeList;
 
     //更新都用sync实现了
-    xx(value: number){
-      this.record.amount=value
+    xx(value: number) {
+      this.record.amount = value;
     }
 
     saveRecord() {
-      if(this.record.tags.length ===0){
-        window.alert('请至少选择一个标签')
-      }else{
+      if (this.record.tags.length === 0) {
+        window.alert('请至少选择一个标签');
+      } else {
         this.$store.commit('createRecord', this.record);
-        this.record.notes=''
+        this.record.notes = '';
         this.record.tags = [];
-        this.record.type = '-'
-        this.record.amount = 0
+        this.record.type = '-';
+        this.record.amount = 0;
       }
     }
   }

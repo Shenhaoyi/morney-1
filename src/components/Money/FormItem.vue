@@ -4,12 +4,14 @@
     <template v-if="type === 'date'">
       <input :type="type"
              :value="x(value)"
+             class = 'date'
              @input="onValueChanged($event.target.value)"
              :placeholder="placeholder"/>
     </template>
     <template v-else>
       <input :type="type || 'text'"
              :value="value"
+             class = 'type'
              @input="onValueChanged($event.target.value)"
              :placeholder="placeholder"/>
     </template>
@@ -42,7 +44,7 @@
   @import '~@/assets/style/helper.scss';
 
   .formItem {
-    font-size: 14px;
+    font-size: 20px;
     padding-left: 16px;
     display: flex;
     align-items: center;
@@ -50,6 +52,12 @@
     .name {
       padding-right: 16px;
     }
+
+    /*.date{*/
+    /*  text-align: center;*/
+    /*  border: none;*/
+    /*  background: white;*/
+    /*}*/
 
     input {
       height: 40px;

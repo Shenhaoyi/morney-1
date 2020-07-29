@@ -99,7 +99,7 @@
         },
         title: {
           show: true,
-          text: this.type === '-' ? '30天收入曲线' : '30天支出曲线',
+          text: this.type === '-' ? '30天收入折线图' : '30天支出折线图',
           padding:[20,0,0,0],
           left:'center'
         },
@@ -188,15 +188,15 @@
 <style lang="scss" scoped>
   ::v-deep {
     .type-item {
-      background: #c4c4c4;
+      /*background: #c4c4c4;*/
 
-      &.selected {
-        background: white;
+      /*&.selected {*/
+      /*  background: white;*/
 
-        &::after {
-          display: none;
-        }
-      }
+      /*  &::after {*/
+      /*    display: none;*/
+      /*  }*/
+      /*}*/
 
     }
 

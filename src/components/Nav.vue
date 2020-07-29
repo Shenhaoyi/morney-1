@@ -46,7 +46,7 @@
 
     }
     > .item.selected {
-      color:$color-highlight;
+      color:$theme-color;
     }
   }
 </style>
