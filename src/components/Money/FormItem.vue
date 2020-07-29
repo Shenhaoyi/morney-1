@@ -48,7 +48,10 @@
     padding-left: 16px;
     display: flex;
     align-items: center;
-    @extend %outterShadow;
+    //@extend %outterShadow;
+    /*box-shadow:;*/
+
+
 
 
     .name {
@@ -64,8 +67,8 @@
     input {
       height: 40px;
       flex-grow: 1;
-      border: none;
       background: transparent;
+      border:none;
       padding-right: 16px;
     }
   }

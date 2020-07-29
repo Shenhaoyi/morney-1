@@ -5,11 +5,13 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove">删除</button>
+      <button @click="remove">
+        <Icon class="leftIcon" name="delete"></Icon>
+      </button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="clear">清除</button>
+            <button @click="clear">归零</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
@@ -23,11 +25,16 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
+  import dayjs from 'dayjs';
 
   @Component
   export default class NumberPad extends Vue {
     @Prop() amount!: number;
     output = this.amount.toString(); //这个句子只在一开始执行一次！！
+
+    x(isoString: string) {
+      return dayjs(isoString).format('YYYY-MM-DD');
+    }
 
 
     inputContent(event: MouseEvent) {
@@ -63,7 +70,7 @@
     ok() {
       this.$emit('update:amount', parseFloat(this.output));
       this.$emit('submit');
-      this.output='0'
+      this.output = '0';
     }
   }
 </script>
@@ -73,12 +80,11 @@
 
   .numberPad {
     .output {
-      @extend %innerShadow;
       font-size: 24px;
       padding: 9px 16px;
       text-align: right;
-      height: 72px;
       background: white;
+      border: 1px solid #d2d2d2;
     }
 
     .buttons {
@@ -90,11 +96,7 @@
         width: 25%;
         height: 64px;
         background: transparent;
-        border: 1px solid #f2f2f2;
-
-        button:hover{
-          background: #000;
-        }
+        border: 1px solid #d2d2d2;
 
         &.ok {
           height: 64*2px;

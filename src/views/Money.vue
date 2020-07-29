@@ -1,18 +1,19 @@
 <template>
   <Layout class-prefix="layout">
     <NumberPad :amount.sync="record.amount" @submit="saveRecord"/>
+    <div class="noteDate-wrapper"></div>
+    <div class="createAt-wrapper">
+      <FormItem field-name='日期：'
+                type="date"
+                placeholder="输入日期"
+                :value.sync="record.createAt"/>
+    </div>
     <div class="notes-wrapper">
       <FormItem field-name="备注："
-                placeholder="在这里输入备注"
+                placeholder="输入备注"
                 :value.sync="record.notes"/>
     </div>
     <tags :selectedTags.sync="record.tags"/>
-    <div class="createAt-wrapper">
-      <FormItem field-name='选择日期：'
-                type="date"
-                placeholder="在这里输入日期"
-                :value.sync="record.createAt"/>
-    </div>
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
   </Layout>

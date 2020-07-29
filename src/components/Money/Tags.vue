@@ -54,12 +54,14 @@
   @import '~@/assets/style/helper.scss';
 
   .tags {
+    border-top:1px solid #d2d2d2;
+    border-bottom:1px solid #d2d2d2;
     background: white;
     flex-grow: 1;
-    font-size: 18px;
+    font-size: 20px;
     padding: 16px;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     overflow: auto;
 
     > .current {

@@ -29,7 +29,7 @@
   nav {
     @extend %outterShadow;
     display: flex;
-    font-size: 12px;
+    font-size: 16px;
 
     > .item {
       padding: 2px 0;
