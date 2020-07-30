@@ -61,12 +61,17 @@
     font-size: 20px;
     padding: 16px;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     overflow: auto;
 
     > .current {
       display: flex;
+      justify-content: center;
+      align-items: center;
       flex-wrap: wrap;
+      overflow: auto;
 
       > li {
         $h: 30px;
