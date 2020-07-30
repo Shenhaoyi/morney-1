@@ -70,7 +70,7 @@
     ok() {
       this.$emit('update:amount', parseFloat(this.output));
       this.$emit('submit');
-      this.output = '0';
+      // this.output = '0';
     }
   }
 </script>
