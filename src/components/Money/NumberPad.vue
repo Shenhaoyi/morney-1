@@ -2,7 +2,7 @@
   <div class="numberPad">
     <div class="output">￥{{output}}</div>
     <div class="buttons">
-      <button @click.prevent="inputContent">11</button>
+      <button @click.prevent="inputContent">1</button>
       <button @click.prevent="inputContent">2</button>
       <button @click.prevent="inputContent">3</button>
       <button @click.prevent="remove">
