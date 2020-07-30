@@ -11,7 +11,7 @@
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-            <button @click="clear">归零</button>
+      <button @click="clear">归零</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
@@ -24,13 +24,19 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
   import dayjs from 'dayjs';
 
   @Component
   export default class NumberPad extends Vue {
     @Prop() amount!: number;
     output = this.amount.toString(); //这个句子只在一开始执行一次！！
+
+    @Watch('amount')
+    onAmountChanged(){
+      this.output = this.amount.toString()
+    }
+
 
     x(isoString: string) {
       return dayjs(isoString).format('YYYY-MM-DD');
@@ -98,7 +104,7 @@
         background: transparent;
         border: 1px solid #d2d2d2;
 
-        &:active{
+        &:active {
           background: $theme-color;
         }
 
