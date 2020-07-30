@@ -58,7 +58,7 @@
 
     .formItem {
       padding-left:10px;
-      font-size: 20px;
+      font-size: 18px;
       width:80%;
 
       input {

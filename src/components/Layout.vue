@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
+  <div ref='layoutWrapper' class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
     <div class="content" :class="classPrefix && `${classPrefix}-content`">
       <slot></slot>
     </div>
@@ -10,7 +10,7 @@
 <script lang="ts">
   export default {
     props:['classPrefix'],
-    name: 'Layout'
+    name: 'Layout',
   };
 </script>
 
@@ -18,7 +18,7 @@
   .layout-wrapper {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
   }
 
   .content {

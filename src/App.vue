@@ -1,8 +1,9 @@
 <template>
-  <div id=app>
+  <div id=app ref="app">
     <router-view></router-view> <!--    替换router中设置的路径中的内容-->
   </div>
 </template>
+
 
 <style lang="scss">
   @import '~@/assets/style/reset.scss';
@@ -21,6 +22,7 @@
   #app{
     max-width: 450px;
     margin:0 auto;
+    height:100vh;
   }
 
 </style>

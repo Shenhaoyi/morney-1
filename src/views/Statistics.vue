@@ -99,7 +99,7 @@
         },
         title: {
           show: true,
-          text: this.type === '-' ? '30天收入折线图' : '30天支出折线图',
+          text: this.type === '-' ? '30天支出折线图' : '30天收入折线图',
           padding:[20,0,0,0],
           left:'center'
         },

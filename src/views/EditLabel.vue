@@ -84,8 +84,8 @@
       align-items: center;
       margin-top:5px;
       margin-bottom:5px;
-      border:1px solid black;
-      border-radius: 2px;
+      /*border:1px solid black;*/
+      /*border-radius: 2px;*/
       padding:0  10px;
       .title {
         width: 100%;
