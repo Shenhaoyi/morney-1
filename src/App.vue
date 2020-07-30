@@ -1,5 +1,5 @@
 <template>
-  <div id=app ref="app">
+  <div id=app>
     <router-view></router-view> <!--    替换router中设置的路径中的内容-->
   </div>
 </template>
@@ -12,16 +12,16 @@
   body {
     line-height: 1.5;
     font-family: $font-hei;
-    font-size:20px;
+    font-size: 20px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #333;
     background: white;
   }
 
-  #app{
+  #app {
     max-width: 450px;
-    margin:0 auto;
+    margin: 0 auto;
     height:100vh;
   }
 

@@ -58,8 +58,12 @@
 
     .formItem {
       padding-left:10px;
-      font-size: 18px;
+      font-size: 16px;
       width:80%;
+
+      .type{
+        padding-right:10px;
+      }
 
       input {
         max-width: 100%;

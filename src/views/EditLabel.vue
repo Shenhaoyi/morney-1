@@ -8,9 +8,9 @@
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-            <FormItem @update:value="onUpdateTag"
-                      name="rename"
-                      placeholder="请输入新的标签名"/>
+      <FormItem @update:value="onUpdateTag"
+                name="rename"
+                placeholder="请输入新的标签名"/>
     </div>
     <div class="button-wrapper">
       <Button @click.native="goBack">确认修改</Button>
@@ -27,12 +27,11 @@
 
   @Component({
     components: {Button, FormItem},
-    computed:{
-    }
+    computed: {}
   })
   export default class EditLabel extends Vue {
-    get tag(){
-      return this.$store.state.currentTag
+    get tag() {
+      return this.$store.state.currentTag;
     }
 
     created() {
@@ -45,7 +44,7 @@
 
     onUpdateTag(name: string) {
       if (!this.tag) return;
-      this.$store.commit('updateTag',{id:this.tag.id,name:name})
+      this.$store.commit('updateTag', {id: this.tag.id, name: name});
     }
 
     remove() {
@@ -77,16 +76,17 @@
       height: 24px
     }
 
-    .titleWrapper{
+    .titleWrapper {
       /*width:25%;*/
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top:5px;
-      margin-bottom:5px;
+      margin-top: 5px;
+      margin-bottom: 5px;
       /*border:1px solid black;*/
       /*border-radius: 2px;*/
-      padding:0  10px;
+      padding: 0 10px;
+
       .title {
         width: 100%;
         text-align: center;
@@ -101,9 +101,14 @@
     }
   }
 
-  .form-wrapper {
-    margin-top: 16px;
-    background: white;
+  ::v-deep {
+    .form-wrapper {
+      margin-top: 16px;
+      background: white;
+      .wrapper{
+        font-size: 20px;
+      }
+    }
   }
 
   .button-wrapper {
