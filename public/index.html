@@ -9,5 +9,15 @@
 </head>
 <body>
 <div id="app"></div>
+
+<script>
+  let height = window.innerHeight
+  let width = window.innerWidth
+  if(width < 450){
+    document.body.style.height = height+'px'
+  }else{
+    document.body.style.height = 100+'vh'
+  }
+</script>
 </body>
 </html>

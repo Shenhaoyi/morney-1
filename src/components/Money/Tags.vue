@@ -81,8 +81,7 @@
         border:1px solid $theme-color;
         border-radius: $h/2;
         padding: 0 16px;
-        margin-right: 12px;
-        margin-top: 4px;
+        margin:8px;
 
         &.selected {
           background: $theme-color;
