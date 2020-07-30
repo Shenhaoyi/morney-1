@@ -11,7 +11,7 @@
 
       <div class="notes-wrapper">
         <FormItem name='note'
-                  placeholder="输入备注"
+                  placeholder="输入备注…"
                   :value.sync="record.notes"/>
       </div>
     </div>

@@ -2,22 +2,22 @@
   <div class="numberPad">
     <div class="output">￥{{output}}</div>
     <div class="buttons">
-      <button @click="inputContent">1</button>
-      <button @click="inputContent">2</button>
-      <button @click="inputContent">3</button>
-      <button @click="remove">
+      <button @click.prevent="inputContent">11</button>
+      <button @click.prevent="inputContent">2</button>
+      <button @click.prevent="inputContent">3</button>
+      <button @click.prevent="remove">
         <Icon class="leftIcon" name="delete"></Icon>
       </button>
-      <button @click="inputContent">4</button>
-      <button @click="inputContent">5</button>
-      <button @click="inputContent">6</button>
-      <button @click="clear">归零</button>
-      <button @click="inputContent">7</button>
-      <button @click="inputContent">8</button>
-      <button @click="inputContent">9</button>
+      <button @click.prevent="inputContent">4</button>
+      <button @click.prevent="inputContent">5</button>
+      <button @click.prevent="inputContent">6</button>
+      <button @click.prevent="clear">归零</button>
+      <button @click.prevent="inputContent">7</button>
+      <button @click.prevent="inputContent">8</button>
+      <button @click.prevent="inputContent">9</button>
       <button class="ok" @click="ok">确定</button>
       <button class="zero" @click="inputContent">0</button>
-      <button @click="inputContent">.</button>
+      <button @click.prevent="inputContent">.</button>
     </div>
   </div>
 </template>
