@@ -24,18 +24,13 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop, Watch} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import dayjs from 'dayjs';
 
   @Component
   export default class NumberPad extends Vue {
     @Prop() amount!: number;
     output = this.amount.toString(); //这个句子只在一开始执行一次！！
-
-    @Watch('amount')
-    onAmountChanged(){
-      this.output = this.amount.toString()
-    }
 
 
     x(isoString: string) {
@@ -76,7 +71,7 @@
     ok() {
       this.$emit('update:amount', parseFloat(this.output));
       this.$emit('submit');
-      // this.output = '0';
+      this.output = '0';
     }
   }
 </script>
